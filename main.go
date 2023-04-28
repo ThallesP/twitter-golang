@@ -18,15 +18,11 @@ import (
 	"github.com/thallesp/twitter-golang/usecase"
 )
 
-type Test[c any] struct {
-	card c
-}
-
 func main() {
 	err := godotenv.Load()
 
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Default().Println("Could not load .env file")
 	}
 
 	app := fiber.New(fiber.Config{
