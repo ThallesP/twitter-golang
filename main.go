@@ -65,10 +65,10 @@ func main() {
 	port := os.Getenv("PORT")
 
 	if port == "" {
-		port = ":3000"
+		port = "3000"
 	}
 
-	if err := app.Listen(os.Getenv("PORT")); err != nil {
+	if err := app.Listen(":" + os.Getenv("PORT")); err != nil {
 		log.Fatalf("failed to listen on specified port. err: %s", err.Error())
 	}
 }
