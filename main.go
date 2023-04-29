@@ -20,7 +20,6 @@ import (
 )
 
 func main() {
-	time.Sleep(500 * time.Millisecond)
 	err := godotenv.Load()
 
 	if err != nil {
@@ -101,6 +100,7 @@ func SetupDatabase() *pg.DB {
 		log.Fatalf("failed to connect to database. Err: %s", err.Error())
 	}
 
+	time.Sleep(500 * time.Millisecond)
 	db := pg.Connect(options)
 	err = createSchema(db)
 
