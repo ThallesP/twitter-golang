@@ -5,7 +5,7 @@ COPY go.sum /app/go.sum
 RUN go mod download
 COPY . /app
 ENV CGO_ENABLED 0
-RUN go build . -o bin
+RUN go build -o bin .
 
 FROM alpine:3.14
 RUN apk add ca-certificates
