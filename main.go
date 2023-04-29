@@ -105,7 +105,7 @@ func SetupDatabase() *pg.DB {
 	err = createSchema(db)
 
 	if err != nil {
-		log.Fatalf("failed to create schema. Err: %s", err.Error())
+		log.Printf("failed to create schema. Not exiting. Err: %s", err.Error())
 	}
 
 	return db
