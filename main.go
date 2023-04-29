@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"time"
 	"log"
 	"os"
 
@@ -19,6 +20,7 @@ import (
 )
 
 func main() {
+	time.Sleep(100 * time.Millisecond)
 	err := godotenv.Load()
 
 	if err != nil {
