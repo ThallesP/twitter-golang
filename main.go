@@ -63,13 +63,7 @@ func main() {
 
 	SetupRoutes(app)
 
-	port := os.Getenv("PORT")
-
-	if port == "" {
-		port = "3000"
-	}
-
-	if err := app.Listen(":" + os.Getenv("PORT")); err != nil {
+	if err := app.Listen(":3000"); err != nil {
 		log.Fatalf("failed to listen on specified port. err: %s", err.Error())
 	}
 }
@@ -99,7 +93,6 @@ func SetupDatabase() *pg.DB {
 	if err != nil {
 		log.Fatalf("failed to connect to database. Err: %s", err.Error())
 	}
-	options.MaxRetries = 10
 
 	time.Sleep(500 * time.Millisecond)
 	db := pg.Connect(options)
