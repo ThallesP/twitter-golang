@@ -17,7 +17,7 @@ type LoginInput struct {
 
 type LoginResponse struct {
 	*entity.User
-	Token string `json:"-"`
+	Token string `json:"token"`
 }
 
 type LoginUseCase struct {
