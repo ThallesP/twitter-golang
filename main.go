@@ -99,6 +99,7 @@ func SetupDatabase() *pg.DB {
 	if err != nil {
 		log.Fatalf("failed to connect to database. Err: %s", err.Error())
 	}
+	options.MaxRetries = 10
 
 	time.Sleep(500 * time.Millisecond)
 	db := pg.Connect(options)
