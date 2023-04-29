@@ -3,9 +3,9 @@ package main
 import (
 	"errors"
 	"fmt"
-	"time"
 	"log"
 	"os"
+	"time"
 
 	"github.com/go-pg/pg/v10"
 	"github.com/go-pg/pg/v10/orm"
@@ -20,7 +20,7 @@ import (
 )
 
 func main() {
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(500 * time.Millisecond)
 	err := godotenv.Load()
 
 	if err != nil {
