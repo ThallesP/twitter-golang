@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"log"
@@ -79,6 +80,15 @@ func SetupRoutes(app *fiber.App) {
 	app.Post("/register", registerController.Handle)
 
 	app.Post("/login", loginController.Handle)
+	app.Get("/health", func(c *fiber.Ctx) error {
+		err := pg.Ping(context.Background())
+
+		if err != nil {
+			return c.SendStatus(500)
+		}
+
+		return c.SendStatus(200)
+	})
 	app.Use(jwtware.New(jwtware.Config{
 		SigningKey: []byte(os.Getenv("JWT_SECRET")),
 	}))
@@ -94,7 +104,7 @@ func SetupDatabase() *pg.DB {
 		log.Fatalf("failed to connect to database. Err: %s", err.Error())
 	}
 
-	time.Sleep(5000 * time.Millisecond)
+	time.Sleep(100 * time.Millisecond)
 	db := pg.Connect(options)
 	err = createSchema(db)
 
