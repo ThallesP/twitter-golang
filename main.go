@@ -104,7 +104,7 @@ func SetupDatabase() *pg.DB {
 		log.Fatalf("failed to connect to database. Err: %s", err.Error())
 	}
 
-	time.Sleep(100 * time.Millisecond)
+	time.Sleep(1000 * time.Millisecond)
 	db := pg.Connect(options)
 	err = createSchema(db)
 
