@@ -13,9 +13,9 @@ Made entirely with Go to learn on how it works. (already loved it).
 
 # How can I test this?
 
-Here's a URL https://twitter-golang.hop.sh
+Here's an URL https://twitter-golang.hop.sh
 
-Here's the following routes
+And the following routes
 
 Authenticated:
 
