@@ -15,7 +15,7 @@ Made entirely with Go to learn on how it works. (already loved it).
 
 Here's a URL https://twitter-golang.hop.sh
 
-There's the following routes
+Here's the following routes
 
 Authenticated:
 
