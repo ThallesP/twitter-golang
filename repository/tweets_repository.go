@@ -15,4 +15,7 @@ func NewFindInput(page int) *FindInput {
 type TweetsRepository interface {
 	Create(tweet *entity.Tweet) error
 	Find(pagination FindInput) (*[]entity.Tweet, error)
+	FindByID(id string) (*entity.Tweet, error)
+	Delete(id string) error
+	Update(id string, tweet *entity.Tweet) (*entity.Tweet, error)
 }

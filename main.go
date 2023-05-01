@@ -72,10 +72,13 @@ func main() {
 func SetupRoutes(app *fiber.App) {
 	pg := SetupDatabase()
 	usersRepository := repository.NewPostgresUsersRepository(pg)
+	tweetsRepository := repository.NewPostgresTweetsRepository(pg)
 
-	createTweetController := controller.NewCreateTweetController(usecase.NewCreateTweetUseCase(repository.NewPostgresTweetsRepository(pg)))
-	getTweetsController := controller.NewGetTweetsController(usecase.NewGetTweetsUseCase(repository.NewPostgresTweetsRepository(pg)))
+	createTweetController := controller.NewCreateTweetController(usecase.NewCreateTweetUseCase(tweetsRepository))
+	getTweetsController := controller.NewGetTweetsController(usecase.NewGetTweetsUseCase(tweetsRepository))
 	registerController := controller.NewRegisterController(usecase.NewRegisterUseCase(usersRepository))
+	editTweetController := controller.NewEditTweetController(usecase.NewEditTweetUseCase(tweetsRepository))
+	deleteTweetController := controller.NewDeleteTweetController(usecase.NewDeleteTweetUseCase(tweetsRepository))
 	loginController := controller.NewLoginController(usecase.NewLoginUseCase(usersRepository))
 	app.Post("/register", registerController.Handle)
 
@@ -95,6 +98,8 @@ func SetupRoutes(app *fiber.App) {
 
 	app.Post("/tweets", createTweetController.Handle)
 	app.Get("/tweets", getTweetsController.Handle)
+	app.Put("/tweets/edit/:tweetId", editTweetController.Handle)
+	app.Delete("/tweets/:tweetId", deleteTweetController.Handle)
 }
 
 func SetupDatabase() *pg.DB {

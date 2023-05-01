@@ -1,8 +1,6 @@
 package controller
 
 import (
-	"fmt"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/thallesp/twitter-golang/entity"
 	"github.com/thallesp/twitter-golang/usecase"
@@ -29,6 +27,5 @@ func (g *GetTweetsController) Handle(c *fiber.Ctx) error {
 		return err
 	}
 
-	fmt.Println(tweets)
 	return c.Status(200).JSON(tweets)
 }

@@ -28,11 +28,43 @@ func (p *PostgresTweetsRepository) Create(tweet *entity.Tweet) error {
 
 func (p *PostgresTweetsRepository) Find(pagination FindInput) (*[]entity.Tweet, error) {
 	tweets := []entity.Tweet{}
-	err := p.db.Model(&tweets).Select()
+	err := p.db.Model(&tweets).Relation("User").Select()
 
 	if err != nil {
 		return nil, err
 	}
 
 	return &tweets, nil
+}
+
+func (p *PostgresTweetsRepository) FindByID(id string) (*entity.Tweet, error) {
+	tweet := entity.Tweet{
+		Id: id,
+	}
+
+	err := p.db.Model(&tweet).WherePK().Relation("User").Select()
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &tweet, nil
+}
+
+func (p *PostgresTweetsRepository) Update(id string, tweet *entity.Tweet) (*entity.Tweet, error) {
+	_, err := p.db.Model(tweet).Where("id = ?", id).Update(tweet)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return tweet, nil
+}
+
+func (p *PostgresTweetsRepository) Delete(id string) (err error) {
+	_, err = p.db.Model(&entity.Tweet{
+		Id: id,
+	}).WherePK().Delete()
+
+	return
 }
