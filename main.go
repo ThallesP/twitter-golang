@@ -94,6 +94,12 @@ func SetupRoutes(app *fiber.App) {
 	})
 	app.Use(jwtware.New(jwtware.Config{
 		SigningKey: []byte(os.Getenv("JWT_SECRET")),
+		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			return c.Status(401).JSON(fiber.Map{
+				"error":   "authentication_error",
+				"message": err.Error(),
+			})
+		},
 	}))
 
 	app.Post("/tweets", createTweetController.Handle)
@@ -114,7 +120,7 @@ func SetupDatabase() *pg.DB {
 	err = createSchema(db)
 
 	if err != nil {
-		log.Printf("failed to create schema. Not exiting. Err: %s", err.Error())
+		log.Fatalf("failed to create schema. Not exiting. Err: %s", err.Error())
 	}
 
 	return db

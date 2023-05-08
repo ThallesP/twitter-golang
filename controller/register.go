@@ -7,8 +7,11 @@ import (
 )
 
 type RegisterDTO struct {
-	Email    string `json:"email" validate:"email"`
-	Password string `json:"password" validate:"min=8"`
+	FullName        string `json:"fullName" validate:"required"`
+	Username        string `json:"username" validate:"required"`
+	ProfileImageURL string `json:"profileImageURL" validate:"required"`
+	Email           string `json:"email" validate:"email"`
+	Password        string `json:"password" validate:"min=8"`
 }
 
 type RegisterController struct {
@@ -35,8 +38,11 @@ func (r *RegisterController) Handle(c *fiber.Ctx) error {
 	}
 
 	user, err := r.registerUseCase.Execute(&usecase.RegisterInput{
-		Email:    registerDTO.Email,
-		Password: registerDTO.Password,
+		Email:           registerDTO.Email,
+		FullName:        registerDTO.FullName,
+		Username:        registerDTO.Username,
+		ProfileImageURL: registerDTO.ProfileImageURL,
+		Password:        registerDTO.Password,
 	})
 
 	if err != nil {

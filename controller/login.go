@@ -43,5 +43,11 @@ func (l *LoginController) Handle(c *fiber.Ctx) error {
 		return err
 	}
 
+	c.Cookie(&fiber.Cookie{
+		Name:     "session",
+		Value:    login.Token,
+		HTTPOnly: true,
+	})
+
 	return c.Status(200).JSON(login)
 }

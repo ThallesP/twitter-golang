@@ -10,8 +10,11 @@ import (
 )
 
 type RegisterInput struct {
-	Email    string
-	Password string
+	FullName        string
+	Username        string
+	Email           string
+	Password        string
+	ProfileImageURL string
 }
 
 type RegisterResponse struct {
@@ -42,10 +45,13 @@ func (r *RegisterUseCase) Execute(registerInput *RegisterInput) (*RegisterRespon
 	}
 
 	user := &entity.User{
-		Id:           uuid.NewString(),
-		Email:        registerInput.Email,
-		PasswordHash: string(passwordHashBytes),
-		CreatedAt:    time.Now(),
+		Id:              uuid.NewString(),
+		Email:           registerInput.Email,
+		FullName:        registerInput.FullName,
+		PasswordHash:    string(passwordHashBytes),
+		Username:        registerInput.Username,
+		ProfileImageURL: registerInput.ProfileImageURL,
+		CreatedAt:       time.Now(),
 	}
 
 	err = r.usersRepository.Create(user)
